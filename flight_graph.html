@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel India | Airways</title>
+    <style>
+    *
+    {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    }
+    .nav-item
+    {
+      color: white;
+    }
+    #left
+    {
+      background: skyblue;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-style: solid;
+    border-color: #03a9f4;
+    border-radius: 20px;
+    }
+    #from
+    {
+      border-radius: 15px;
+    }
+    #to
+    {
+      border-radius: 15px;
+    }
+    #right
+    {
+      justify-content: center;
+      display: none;
+    align-items: center;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-style: solid;
+    border-color: #03a9f4;
+    border-radius: 20px;
+    }
+    .welcome
+    {
+      padding-left: 10px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    </style>
+    
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        const graph = {
+  Agra: { Delhi: 177},
+  Ahmedabad: { Mumbai: 442, Bangalore: 1220, Delhi: 775},
+  Allahabad: { Ranchi: 419, Kanpur: 189 },
+  Amritsar: { Delhi: 421 },
+  Bangalore: {Delhi: 1740, Hyderabad: 453, Ahmedabad: 1220, Pune: 720, Mumbai: 833, Panaji: 481, Chennai: 268, Kolkata: 1544, Kochchi: 342, Vijayawada: 496},
+  Bhopal: { Katni: 311},
+  Chennai: { Nagpur: 910, Delhi: 1760, Kolkata: 1366, Mumbai: 1031, Pune: 911, Bangalore: 268, Kochchi: 527, Renigunta: 111},
+  Darjeeling: { Delhi: 1101, Guwahati: 359, Kolkata: 496},
+  Dehradun: { Delhi: 202},
+  Delhi: { Amritsar: 421, Jammu: 505, Dehradun: 202, Kolkata: 1311, Varanasi: 664, Kanpur: 393, Agra: 177, Chennai: 1760, Hyderabad: 1264, Bangalore: 1740, Mumbai: 1137, Pune: 1155, Panaji: 2062, Guwahati: 1453, Jaipur: 231, Ahmedabad: 775, Jodhpur: 474, Lucknow: 419, Nagpur: 852},
+  Dibrugarh:{Kolkata: 856, Guwahati: 353},
+  Gaya:{Patna: 90, Ranchi: 159}, 
+  Guwahati:{ Dibrugarh: 353, Kolkata: 655, Delhi: 1457},
+  Hyderabad:{ Vijaywada: 251, Vishakhapatnam: 513, Pune: 496, Kolkata: 1209, Delhi: 1264, Mumbai: 621, Bangalore: 453, Chennai: 507, Renigunta: 416},
+  Jaipur:{ Delhi: 231, Mumbai: 909, Vadodara: 576},
+  Jammu:{Delhi: 505 },
+  Jodhpur:{Delhi: 474, Mumbai: 7},
+  Kandla:{Rajkot: 101},
+  Kanpur:{Delhi: 393},
+  Katni : {Bhopal: 311, Raipur: 313},
+  Kochchi : {Bangalore: 342, Chennai:527, Mumbai:1063},
+  Kolkata : { Silchar: 524, Murkongselek: 856, Guwahati: 519, Hyderabad: 1180, Chennai: 1366, Bangalore: 1544, Hyderabad: 1209, Mumbai: 1652, Nagpur: 964, Ranchi: 325, Varanasi: 646, Delhi: 1305, Raipur: 709, Vijayawada: 1052},
+  Lucknow : {Delhi: 419, Mumbai: 1181, Patna:437 },
+  Mangalore : {Mumbai: 713},
+  Mumbai : { Kolkata: 1652, Nagpur: 681, Delhi: 1137, Jaipur: 909, Jodhpur: 833, Renigunta: 933, Surat: 224, Ahmedabad: 442, Rajkot: 418, Kochchi: 1063, Mangalore: 713, Panaji: 411, Bangalore: 842, Chennai: 1031, Hyderabad: 617, Lucknow: 1181, Pune: 122},
+  Murkongselek : {Guwahati:353 , Kolkata :856},
+  Nagpur : {Delhi: 852, Mumbai: 681, Kolkata: 964, Chennai: 910},
+  Panaji : {Delhi: 2062 ,Mumbai: 411 ,Pune: 336, Bangalore: 493 },
+  Patna : {Lucknow: 437, Ranchi: 253 },
+  Pune : {Mumbai: 122, Panaji: 336 , Bangalore: 720, Chennai: 911, Hyderabad: 496, Delhi: 1155, Renigunta: 805},
+  Raipur : {Katni: 313, Kolkata: 709},
+  Rajkot : {Kandla: 101, Mumbai: 418},
+  Ranchi : {Kolkata: 325, Patna: 253},
+  Renigunta : {Mumbai: 933, Pune: 805, Chennai: 111, Hyderabad: 416},
+  Silchar : {Kolkata: 524},
+  Surat : {	Mumbai: 224 },
+  Vadodara : {Jaipur: 576, Mumbai: 360},
+  Varanasi : {Delhi: 676, Kolkata: 646},
+  Vijayawada : {Bangalore: 496, Hyderabad: 251, Kolkata: 1052},
+  Vishakhapatnam : {Hyderabad: 513},
+};
+
+const graph2 = {
+  Agra: { Delhi: 3862},
+  Ahmedabad: { Mumbai: 1940, Bangalore: 3547, Delhi: 2442},
+  Allahabad: { Ranchi: 9277, Kanpur: 4910 },
+  Amritsar: { Delhi: 3797 },
+  Bangalore: {Delhi: 5062, Hyderabad: 3275, Ahmedabad: 4398, Pune: 2868, Mumbai: 2477, Panaji: 3588, Chennai: 1581, Kolkata: 6848, Kochchi: 2102, Vijayawada: 5769},
+  Bhopal: { Katni: 3240},
+  Chennai: { Nagpur: 6098, Delhi: 6254, Kolkata: 5148, Mumbai: 2235, Pune: 4300, Bangalore: 1980, Kochchi: 3836, Renigunta: 7868},
+  Darjeeling: { Delhi: 4638, Guwahati: 2913, Kolkata: 2548},
+  Dehradun: { Delhi: 3290},
+  Delhi: { Amritsar: 3434, Jammu: 3858, Dehradun: 3290, Kolkata: 5799, Varanasi: 3859, Kanpur: 393, Agra: 3862, Chennai: 6090, Hyderabad: 5821, Bangalore: 4955, Mumbai: 4718, Pune: 2950, Panaji: 6902, Guwahati: 6496, Jaipur: 1873, Ahmedabad: 2240, Jodhpur: 3433, Lucknow: 3016, Nagpur: 4743},
+  Dibrugarh:{Kolkata: 4913, Guwahati: 2993},
+  Gaya:{Patna: 3962, Ranchi: 3101}, 
+  Guwahati:{ Dibrugarh: 5716, Kolkata: 3239, Delhi: 6434},
+  Hyderabad:{ Vijaywada: 2499, Vishakhapatnam: 4586, Pune: 3746, Kolkata: 5472, Delhi: 6243, Mumbai: 4556, Bangalore: 3429, Chennai: 3694, Renigunta: 3357},
+  Jaipur:{ Delhi: 1852, Mumbai: 4770, Vadodara: 4214},
+  Jammu:{Delhi: 4293 },
+  Jodhpur:{Delhi: 3357, Mumbai: 5037},
+  Kandla:{Rajkot: 1400},
+  Kanpur:{Delhi: 2888},
+  Katni : {Bhopal: 311, Raipur: 313},
+  Kochi : {Bangalore: 1711, Chennai:2633, Mumbai:5009},
+  Kolkata : { Silchar: 4642, Murkongselek: 5443, Guwahati: 3787, Hyderabad: 6405, Chennai: 6442, Bangalore: 6442, Hyderabad: 6405, Mumbai: 8445, Nagpur: 5114, Ranchi: 3887, Varanasi: 4126, Delhi: 6603, Raipur: 4347, Vijayawada: 3432},
+  Lucknow : {Delhi: 3055, Mumbai: 4462, Patna:2748 },
+  Mangalore : {Mumbai: 4307},
+  Mumbai : { Kolkata: 5114, Nagpur: 4150, Delhi: 4718, Jaipur: 4770, Jodhpur: 5037, Renigunta: 2235, Surat: 7500, Ahmedabad: 1940, Rajkot: 3368, Kochchi: 5562, Mangalore: 4307, Panaji: 3546, Bangalore: 2447, Chennai: 2235, Hyderabad: 4556, Lucknow: 4462, Pune: 4762},
+  Murkongselek : {Kolkata: 4913, Guwahati: 2993},
+  Nagpur : {Delhi: 5035 , Mumbai: 4150, Kolkata: 4431 , Chennai: 4470},
+  Panaji : {Delhi: 5521 ,Mumbai: 3546  ,Pune: 3669, Bangalore: 3546},
+  Patna : {Lucknow: 3223, Ranchi: 2874 },
+  Pune : {Mumbai: 4786, Panaji: 3546 , Bangalore: 2871 , Chennai: 4216, Hyderabad: 3637, Delhi: 3933, Renigunta: 4300},
+  Raipur : {Katni: 7747, Kolkata: 4052},
+  Rajkot : {Kandla: 1400, Mumbai: 3403},
+  Ranchi : {Kolkata: 3831, Patna: 2368, Ahmedabad: 5149},
+  Renigunta : {Mumbai: 2235, Pune: 4300, Chennai: 7868 , Hyderabad: 3357},
+  Silchar : {Kolkata: 4113},
+  Surat : {	Mumbai: 10703 },
+  Thiruvananthapuram : {Kochi: 3823},
+  Vadodara : {Jaipur: 13748, Mumbai: 4308},
+  Varanasi : {Delhi: 4178, Kolkata: 3922},
+  Vijayawada : {Bangalore: 4453, Hyderabad: 3694, Kolkata: 13538},
+  Vishakhapatnam : {Hyderabad: 4381},
+  };
+const printTable = (table) => {
+  return Object.keys(table)
+    .map((vertex) => {
+      var { vertex: from, cost } = table[vertex];
+      return `${vertex}: ${cost} via ${from}`;
+    })
+    .join("\n");
+};
+
+const tracePath = (table, start, end) => {
+  var path = [];
+  var next = end;
+  while (true) {
+    path.unshift(next);
+    if (next === start) {
+      break;
+    }
+    next = table[next].vertex;
+  }
+
+  return path;
+};
+
+const formatGraph = (g) => {
+  const tmp = {};
+  Object.keys(g).forEach((k) => {
+    const obj = g[k];
+    const arr = [];
+    Object.keys(obj).forEach((v) => arr.push({ vertex: v, cost: obj[v] }));
+    tmp[k] = arr;
+  });
+  return tmp;
+};
+
+function calTime( speed, distance )  
+{ 
+ // Speed & distance both in km/hr
+
+ var hours = Math.floor(distance / speed);  
+  var minutes = (distance / speed)*60;
+minutes %= 60;
+if(hours >= 24)
+{
+let days = Math.floor(hours/24); 
+hours -= days*24;
+return days + "d " + hours + "hrs " + minutes + "mins";
+}
+  return hours + "hrs "+ Math.round(minutes) + "mins ";
+}
+
+const dijkstra = (graph, start, end) => {
+  var map = formatGraph(graph);
+
+  var visited = [];
+  var unvisited = [start];
+  var shortestDistances = { [start]: { vertex: start, cost: 0 } };
+
+  var vertex;
+  while ((vertex = unvisited.shift())) {
+    // Explore unvisited neighbors
+    if(map[vertex]==undefined)
+    {
+      continue;
+    }
+    var neighbors = map[vertex].filter((n) => !visited.includes(n.vertex));
+
+    // Add neighbors to the unvisited list
+    unvisited.push(...neighbors.map((n) => n.vertex));
+
+    var costToVertex = shortestDistances[vertex].cost;
+
+    for (let { vertex: to, cost } of neighbors) {
+      var currCostToNeighbor =
+        shortestDistances[to] && shortestDistances[to].cost;
+      var newCostToNeighbor = costToVertex + cost;
+      if (
+        currCostToNeighbor == undefined ||
+        newCostToNeighbor < currCostToNeighbor
+      ) {
+        // Update the table
+        shortestDistances[to] = { vertex, cost: newCostToNeighbor };
+      }
+    }
+
+    visited.push(vertex);
+  }
+
+  console.log("Table of costs:");
+  console.log(printTable(shortestDistances));
+
+  const path = tracePath(shortestDistances, start, end);
+  document.getElementById("right").style.display = "block";
+  document.getElementById("RightList").innerHTML=
+    ["<b>"+"Fastest path: "+"</b>"+'<li class="list-group-item"><i class="fa fa-plane" aria-hidden="true"></i>      '+
+    path.join(' </li><li class="list-group-item"><i class="fa fa-plane" aria-hidden="true"></i>      ')+"</li>"+"<br>"+"<br>"+"<b>"+
+     "Details: "+"</b>"+"<br>"+"<table class='table table-bordered'>" + "<thead>"+
+    "<tr>"+"<th scope='col'>"+"Distance"+"</th>"+
+      "<th scope='col'>"+"Speed"+"</th>"+"<th scope='col'>"+"Time"+"</th>"+
+    "</tr>"+
+  "</thead>" +"<tbody>"+
+    "<tr>"+
+      "<td>"+shortestDistances[end].cost+"</td>"+
+      "<td>"+"920 Km/Hr"+"</td>"+
+      "<td>"+calTime(920, shortestDistances[end].cost)+"</td>"+
+    "</tr>"+"</tbody>"+
+    "</table>"]
+  ;
+};
+const dijkstra2 = (graph, start, end) => {
+  var map = formatGraph(graph);
+
+  var visited = [];
+  var unvisited = [start];
+  var shortestDistances = { [start]: { vertex: start, cost: 0 } };
+
+  var vertex;
+  while ((vertex = unvisited.shift())) {
+    // Explore unvisited neighbors
+    if(map[vertex]==undefined)
+    {
+      continue;
+    }
+    var neighbors = map[vertex].filter((n) => !visited.includes(n.vertex));
+
+    // Add neighbors to the unvisited list
+    unvisited.push(...neighbors.map((n) => n.vertex));
+
+    var costToVertex = shortestDistances[vertex].cost;
+
+    for (let { vertex: to, cost } of neighbors) {
+      var currCostToNeighbor =
+        shortestDistances[to] && shortestDistances[to].cost;
+      var newCostToNeighbor = costToVertex + cost;
+      if (
+        currCostToNeighbor == undefined ||
+        newCostToNeighbor < currCostToNeighbor
+      ) {
+        // Update the table
+        shortestDistances[to] = { vertex, cost: newCostToNeighbor };
+      }
+    }
+
+    visited.push(vertex);
+  }
+
+  console.log("Table of costs:");
+  console.log(printTable(shortestDistances));
+
+  const path = tracePath(shortestDistances, start, end);
+  document.getElementById("right").style.display = "block";
+  document.getElementById("RightList").innerHTML=
+    ["Shortest path is: "+'<li class="list-group-item"><i class="fa fa-plane" aria-hidden="true"></i>      '+
+    path.join(' </li><li class="list-group-item"><i class="fa fa-plane" aria-hidden="true"></i>      ')+"</li>"+"<br>"+"<br>"+
+     "Details: "+"<br>"+"<table class='table table-bordered'>" + "<thead>"+
+    "<tr>"+"<th scope='col'>"+"Category"+"</th>"+
+      "<th scope='col'>"+"Price"+"</th>"+
+    "</tr>"+
+  "</thead>" +"<tbody>"+
+    "<tr>"+
+      "<td>"+"Economy Class"+"</td>"+
+      "<td>"+shortestDistances[end].cost+"</td>"+
+    "</tr>"+"</tbody>"+
+    "</table>"]
+  ;
+};
+</script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" style="color: white;">Travel India</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav" >
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index_proj.html" style="color: white;">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="rail_image.html" style="color: white;">Map</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div style="text-align: center; background-color:goldenrod; border-bottom: 0.4cm; border-style: solid; border-color: black;">
+      <img src="top_image.png" class="img-fluid" alt="..." width="800px" height="20px" style="background-color:skyblue;border-style: solid;
+      border-color: black; border-width: 0.15cm;">
+      </div>
+    <form>
+      <div class="welcome"><b><u>Welcome to Airways</u></b></div>
+      <div style="float: left; width: 50%" id="left">
+        <p><b>From: </b></p>
+      <select name="from" id="from" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option value="-1" selected>Select Source</option>
+        <option value="Agra">Agra</option>
+        <option value="Ahmedabad">Ahemdabad</option>
+        <option value="Allahabad">Allahabad</option>
+        <option value="Amritsar">Amritsar</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Bhopal">Bhopal</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Darjeeling">Darjeeling</option>
+        <option value="Dehradun">Dehradun</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Dibrugarh">Dibrugarh</option>
+        <option value="Gaya">Gaya</option>
+        <option value="Guwahati">Guwahati</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Jaipur">Jaipur</option>
+        <option value="Jammu">Jammu</option>
+        <option value="Jodhpur">Jodhpur</option>
+        <option value="Kandla">Kandla</option>
+        <option value="Kanpur">Kanpur</option>
+        <option value="Katni">Katni</option>
+        <option value="Kochchi">Kochchi</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Lucknow">Lucknow</option>
+        <option value="Mangalore">Mangalore</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Murkongselek">Murkong Selek</option>
+        <option value="Nagpur">Nagpur</option>
+        <option value="Panaji">Panaji</option>
+        <option value="Patna">Patna</option>
+        <option value="Pune">Pune</option>
+        <option value="Raipur">Raipur</option>
+        <option value="Rajkot">Rajkot</option>
+        <option value="Ranchi">Ranchi</option>
+        <option value="Renigunta">Renigunta</option>
+        <option value="Silchar">Silchar</option>
+        <option value="Surat">Surat</option>
+        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+        <option value="Vadodra">Vadodara</option>
+        <option value="Varansi">Varanasi</option>
+        <option value="Vijayawada">Vijayawada</option>
+        <option value="Vishakhapatnam">Vishakhapatnam</option>
+    </select>
+    <p><b>To: </b></p>
+    <select name="to" id="to" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option value="-1" selected>Select Destination</option>
+        <option value="Agra">Agra</option>
+        <option value="Ahmedabad">Ahemdabad</option>
+        <option value="Allahabad">Allahabad</option>
+        <option value="Amritsar">Amritsar</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Bhopal">Bhopal</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Darjeeling">Darjeeling</option>
+        <option value="Dehradun">Dehradun</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Dibrugarh">Dibrugarh</option>
+        <option value="Gaya">Gaya</option>
+        <option value="Guwahati">Guwahati</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Jaipur">Jaipur</option>
+        <option value="Jammu">Jammu</option>
+        <option value="Jodhpur">Jodhpur</option>
+        <option value="Kandla">Kandla</option>
+        <option value="Kanpur">Kanpur</option>
+        <option value="Katni">Katni</option>
+        <option value="Kochchi">Kochchi</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Lucknow">Lucknow</option>
+        <option value="Mangalore">Mangalore</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Murkongselek">Murkong Selek</option>
+        <option value="Nagpur">Nagpur</option>
+        <option value="Panaji">Panaji</option>
+        <option value="Patna">Patna</option>
+        <option value="Pune">Pune</option>
+        <option value="Raipur">Raipur</option>
+        <option value="Rajkot">Rajkot</option>
+        <option value="Ranchi">Ranchi</option>
+        <option value="Renigunta">Renigunta</option>
+        <option value="Silchar">Silchar</option>
+        <option value="Surat">Surat</option>
+        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+        <option value="Vadodra">Vadodara</option>
+        <option value="Varansi">Varanasi</option>
+        <option value="Vijayawada">Vijayawada</option>
+        <option value="Vishakhapatnam">Vishakhapatnam</option>
+    </select>
+        <div class="d-grid gap-2 col-6 mx-auto">
+        <input class="btn btn-primary" type="button" value = "Find Fastest Path" id="myButton" onclick="dijkstra(graph, from.value, to.value)">
+        <input class="btn btn-primary" type="button" value = "Find Cheapest Path" id="myButton" onclick="dijkstra2(graph2, from.value, to.value)">
+      </div>
+      </div>
+    </form>
+    <div style="float: right; width: 45%" id = "right">
+      <!--<div class="PathHere">Check your path here</div>-->
+      <ul class="list-group" id="RightList">
+      </ul>
+    </div>
+</body>
+</html>
+       

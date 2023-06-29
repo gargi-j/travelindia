@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel India | Railways</title>
+    <style>
+    *
+    {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    }
+    .nav-item
+    {
+      color: white;
+    }
+    #left
+    {
+      background: skyblue;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    border-style: solid;
+    border-color: #03a9f4;
+    border-radius: 20px;
+    }
+
+    .welcome
+    {
+      padding-left: 10px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    #from
+    {
+      border-radius: 15px;
+    }
+    #to
+    {
+      border-radius: 15px;
+    }
+    #right
+    {
+      justify-content: center;
+      display: none;
+    align-items: center;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border-style: solid;
+    border-color: #03a9f4;
+    border-radius: 20px;
+    }
+    </style>
+    
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script>
+        const graph = {
+  Agra: { Delhi: 175, Jaipur: 214 , Ratlam: 550, Jhansi: 216, Kanpur: 231, Akola: 1039},
+  Ahmedabad: { Vadodara: 96, Jaipur: 620, Kandla: 289, Rajkot: 205},
+  Akola: { Jalgaon: 139, Ratlam: 760, Wardha: 174, Nanded: 208 },
+  Allahabad: { Faizabad: 155, Varanasi: 124, Katni: 269, Kanpur: 194 },
+  Ambala: { Jammu: 378, Amritsar: 249, Delhi: 199, Dehradun: 157, Moradabad: 274 },
+  Amritsar: { Bhatinda: 284, Ambala: 249 },
+  Anupgarh: { Bhatinda: 238 },
+  Bangalore: { Mangalore: 344, Panaji: 664, Mysore: 138, Chennai: 359, Renigunta: 345, Guntakal: 277},
+  Bankura: { Kolkata: 233, Haldia: 184, Cuttack: 410},
+  Barmer: { Munabao: 119, Jodhpur: 209},
+  Bhatinda: { Amritsar: 284, Delhi: 287, Anupgarh: 238, Bikaner: 324},
+  Bhopal: { Ratlam: 270, Nagpur: 384, Jhansi: 292},
+  Bikaner: { Bhatinda: 321, Jodhpur: 276, Jaipur: 378},
+  Bilaspur: { Katni: 310, Raipur: 111, Cuttack: 519, Ranchi: 470, Kolkata: 717},
+  Chennai: { Vijayawada: 431, Renigunta: 137, Bangalore: 359, Mangalore: 889, Tiruchirappalli: 337},
+  Cuttack: { Bankura: 410, Vishakhapatnam: 446, Bilaspur: 519, Sambalpur: 272},
+  Dangori: { Dibrugarh: 87, Kohima: 273},
+  Darjeeling: { Katihar: 155, Guwahati: 334, Murkongselek: 790},
+  Dehradun: { Ambala: 157, Moradabad: 167, Delhi: 251},
+  Delhi: { Ambala: 199, Bhatinda: 287, Dehradun: 251, Moradabad: 108, Kanpur: 440, Agra: 175, Jaipur: 227},
+  Delvada:{Veraval: 95},
+  Dhubri:{Guwahati: 262, Kohima: 250, Silchar: 340, Diburgarh: 383, Kumarghat: 421},
+  Dibrugarh:{Silchar: 524, Guwahati: 425},
+  Faizabad:{Allahabad: 158, Lucknow: 128, Kanpur: 211, Jhansi: 432},
+  Gaya:{Patna: 92, Varanasi: 205, Kolkata: 460}, 
+  Guntakal:{Hospet: 115, Gunthur: 388, Hyderabad: 412, Wadi: 265, Renigunta: 282, Banglore: 266},
+  Gunthur:{Vijaywada: 32, Guntakal: 388,Hospet: 516, Hyderabad: 286, Renigunta: 346, Wadi: 466},
+  Guwahati:{Murkongselek: 449, Dhubri: 262, Dibrugarh: 383, Kumarghat: 421, Silchar: 340},
+  Haldia:{Kolkata: 136},
+  Hospet:{Guntakal: 115, Renigunta: 425, Banglore: 397, Mysore: 535, Gunthur: 516, Vijaywada: 548},
+  Hyderabad:{Wadi: 147, Guntakal: 346, Gunthur: 281, Vijaywada: 313, Pune: 592, Wardha: 499, Nanded: 272},
+  Jaipur:{Agra: 240, Delhi: 304, Jodhpur: 310, Jaiselmer: 609, Barmer: 520},
+  Jaiselmer:{Jodhpur: 292, Barmer: 210, Jaipur: 609},
+  Jalgaon:{Akola: 139, Mumbai: 419, Nanded: 402, Surat: 311},
+  Jammu:{Ambala: 378, Delhi: 577, Muradabad: 652, Amritsar: 206},
+  Jhansi:{Agra: 216,Kanpur: 216, Lucknow: 292, Faizabad: 420, Allahabad: 412, Katni: 409, Bhopal: 292},
+  Jodhpur:{Jaiselmer: 292, Barmer: 210, Agra: 551, Jaipur: 310},
+  Kandla:{Ahemdabad: 300, Vadodra: 100, Surat: 530, Mumbai: 782},
+  Kanniyakumari:{Thiruvanandpuram: 87, Kollam: 136, Kochi: 272, Rameshwaram: 407, Tiruchirappalli: 387, Chennai: 699},
+  Kanpur:{Agra: 215, Jhansi: 220, Lucknow: 71, Faridabad: 440, Allahabad: 194, Varanasi: 319},
+  Katihar :{Darjiling :256 , Muzaffarpur: 262, Kolkata : 429, Patna : 291},
+  Katni : {Bhopal: 421 , Bilaspur: 310 ,Allahabad:282},
+  Kirandul : {Vishakhapatnam:472},
+  Kochchi : {Mangalore: 411, Chennai:1001, Kollam:141},
+  Kohima : {Silchar: 162.2 , Guwahati: 355, Dibrugarh: 332, Dangori: 273, Kumarghat:298},
+  Kolkata : {Haldia: 140, Ranchi: 416, Gaya: 460, Bankura: 230, Patna: 547, Muzaffarpur:555, Bilaspur:710 , Cuttack: 401},
+  Kollam : {Kochchi: 141, Thiruvananthapuram: 54, Rameshwaram: 427, Tiruchirappalli:396},
+  Kumarghat : {Silchar: 146, Kohima :298 , Guwahati :421 },
+  Lucknow : {Kanpur : 74, Faridabad: 416, Moradabad: 356, Varanasi :402 , Allahabad :201, Muzaffarpur :562 , Patna:502 },
+  Mangalore : {Panaji: 374, Bangalore :344 , Kochchi :411, Tiruchirappalli: 481},
+  Moradabad : {Delhi :167 , Dehradun : 219, Lucknow:325},
+  Mumbai : {Ratnagiri :446 , Delvada : 788, Jalgaon :365 , Pune :119 ,Nanded : 589},
+  Munabo : {Barmer:119},
+  Murkongselek : {Guwahati:490 , Dhubri :496},
+  Muzaffarapur : {Patna :86, Lucknow: 566, Katihar:263 },
+  Mysore: {Bangalore :138},
+  Nagpur : {Wardha : 76, Raipur : 298 , Bhopal :384 ,Katni: 453, Jalgaon : 416},
+  Naliya : {Kandla :131},
+  Nanded : {Hyderabad :268 , Akola :208, Mumbai : 589,Pune :555, Jalgaon : 402},
+  Okha  : {Rajkot : 252},
+  Panaji : {Ratnagiri: 207 , Mangalore: 343 , Pune: 634 , Hospet: 342 , Bangalore: 664 },
+  Patna : {Gaya: 92 , Muzaffarpur: 80 , Varanasi: 211 , Kolkata: 532 },
+  Pune : {Mumbai: 120, Panaji: 634 , Wadi: 412 },
+  Raipur : {Bilaspur: 111 , Nagpur: 302 , Vishakhapatnam: 530 , Sambalpur: 315},
+  Rajkot : {Okha: 252 , Veraval: 185 , Ahembdabad: 236 , Jaipur: 804 },
+  Rameshwaram : {Kanniyakumari: 407 , Tiruchchirapalli: 264,},
+  Ranchi : {Bilaspur: 470 , Sambalpur: 266 , Kolkata: 344 , Varanasi: 460, Gaya: 255},
+  Ratlam : {Vadodara: 253, Jaipur: 465 , Agra: 550 , Bhopal: 239},
+  Ratnagiri : {Mumbai: 278 , Panaji: 207},
+  Renigunta : {Guntakal: 282, Bengaluru: 325 ,	Chennai: 137 , Kochhi: 683 ,	Mangalore: 897 , Gunthur: 346 , Vijayawada: 346},
+  Sambalpur : {Cuttack: 217 , Raipur: 315 , Vishakhapatnam: 509 },
+  Silchar : {Guwahati: 340 , Kumarghat: 146 , Kohima: 349},
+  Surat : {Vadodara: 130 , Jalgaon: 307 ,	Mumbai: 216 },
+  Thiruvananthapuram : {Kanniyakumari: 87 , Kollam: 57},
+  Tiruchirappalli : {Rameshwaram: 264 , Chennai: 281 , Kanniyakumari: 356 ,	Kollam: 424},
+  Vadodara : {Ahemdabad: 100 , Ratlam: 253 , Surat: 130},
+  Varanasi : {Allahabad: 124 , Patna: 211 , Gaya: 205 , Lucknow: 301 ,	Faizabad: 143 , Ranchi: 460},
+  Veraval : {Rajkot: 185},
+  Vijayawada : {Vishakhapatnam: 332 , Gunthur: 30 , Reniguntha: 346, Chennai: 431, Wardha : 582},
+  Vishakhapatnam : {Kirandul	: 471 , Vijayawada: 332 , Cuttack: 425 ,	Raipur: 530 , Sambalpur: 509 },
+  Wadi : {Pune: 412 , Hyderabad: 180 , Guntakal: 229 },
+  Wardha : {Nagpur: 76 , Akola: 174 , Hyderabad: 499 , Vijayawada: 582 },
+};
+
+const graph2 = {
+  Agra: { Delhi: 590, Jaipur: 475 , Ratlam: 965, Jhansi: 540, Kanpur: 500, Akola: 1415},
+  Ahmedabad: { Vadodara: 350, Jaipur: 950, Kandla: 315, Rajkot: 495},
+  Akola: { Jalgaon: 550, Ratlam: 550, Wardha: 555, Nanded: 590 },
+  Allahabad: { Faizabad: 555, Varanasi: 590, Katni: 540, Kanpur: 545 },
+  Ambala: { Jammu: 665, Amritsar: 555, Delhi: 540, Dehradun: 540, Moradabad: 565},
+  Amritsar: { Bhatinda: 540, Ambala: 555 },
+  Anupgarh: { Bhatinda: 555 },
+  Bangalore: { Mangalore: 730, Panaji: 885, Mysore: 495, Chennai: 660, Renigunta: 535, Guntakal: 540},
+  Bankura: { Kolkata: 540, Haldia: 150, Cuttack: 740},
+  Barmer: { Munabao: 130, Jodhpur: 495},
+  Bhatinda: { Amritsar: 540, Delhi: 590, Anupgarh: 555, Bikaner: 585},
+  Bhopal: { Ratlam: 540, Nagpur: 680, Jhansi: 540},
+  Bikaner: { Bhatinda: 585, Jodhpur: 540, Jaipur: 740},
+  Bilaspur: { Katni: 575, Raipur: 495, Cuttack: 905, Ranchi: 800, Kolkata: 1035},
+  Chennai: { Vijayawada: 800, Renigunta: 545, Bangalore: 660, Mangalore: 1290, Tiruchirappalli: 680},
+  Cuttack: { Bankura: 740, Vishakhapatnam: 845, Bilaspur: 905, Sambalpur: 540},
+  Dangori: { Dibrugarh: 505, Kohima: 520},
+  Darjeeling: { Katihar: 505, Guwahati: 825, Murkongselek: 1560},
+  Dehradun: { Ambala: 540, Moradabad: 540, Delhi: 635},
+  Delhi: { Ambala: 540, Bhatinda: 590, Dehradun: 635, Moradabad: 540, Kanpur: 810, Agra: 590, Jaipur: 645},
+  Delvada:{Veraval: 100},
+  Dhubri:{Guwahati: 232, Kohima: 720, Silchar: 895, Dibrugarh: 1120, Kumarghat: 990},
+  Dibrugarh:{Silchar: 890, Guwahati: 920},
+  Faizabad:{Allahabad: 350, Lucknow: 530, Kanpur: 540, Jhansi: 755},
+  Gaya:{Patna: 335, Varanasi: 590, Kolkata: 755}, 
+  Guntakal:{Hospet: 495, Guntur: 655, Hyderabad: 710, Wadi: 210, Renigunta: 590, Banglore: 645},
+  Guntur:{Vijaywada: 540, Guntakal: 715,Hospet: 332, Hyderabad: 515, Renigunta: 560, Wadi: 755},
+  Guwahati:{Murkongselek: 825, Dhubri: 2120, Dibrugarh: 2100, Kumarghat: 720, Silchar: 680},
+  Haldia:{Kolkata: 162},
+  Hospet:{Guntakal: 505, Renigunta: 705, Banglore: 810, Mysore: 1000, Guntur: 880, Vijaywada: 915},
+  Hyderabad:{Wadi: 505, Guntakal: 655, Guntur: 515, Vijaywada: 530, Pune: 965, Wardha: 915, Nanded: 540},
+  Jaipur:{Agra: 475, Delhi: 495, Jodhpur: 655, Jaiselmer: 1125, Barmer: 940},
+  Jaiselmer:{Jodhpur: 495, Barmer: 1193, Jaipur: 1125},
+  Jalgaon:{Akola: 540, Mumbai: 1200, Nanded: 835, Surat: 605},
+  Jammu:{Ambala: 725, Delhi: 1520, Muradabad: 365, Amritsar: 540},
+  Jhansi:{Agra: 540,Kanpur: 495, Lucknow: 540, Faizabad: 790, Allahabad: 755, Katni: 875, Bhopal: 590},
+  Jodhpur:{Jaiselmer: 227, Barmer: 590, Agra: 920, Jaipur: 655},
+  Kandla:{Ahemdabad: 590, Vadodra: 590, Surat: 940, Mumbai: 635},
+  Kanniyakumari:{Thiruvanandpuram: 150, Kollam: 500, Kochi: 272, Rameshwaram: 765, Triuchchpalli: 655, Chennai: 995},
+  Kanpur:{Agra: 590, Jhansi: 495, Lucknow: 495, Faridabad: 735, Allahabad: 495, Varanasi: 610},
+  Katihar :{Darjiling :540 , Muzaffarpur: 495, Kolkata : 685, Patna : 430},
+  Katni : {Bhopal: 705 , Bilaspur: 555 ,Allahabad:495},
+  Kirandul : {Vishakhapatnam:800},
+  Kochchi : {Mangalore: 730, Chennai:1320, Kollam:495},
+  Kohima : {Silchar: 490 , Guwahati: 540, Dibrugarh: 595, Dangori: 520, Kumarghat:420},
+  Kolkata : {Haldia: 325, Ranchi: 665, Gaya: 780, Bankura: 540, Patna: 950, Muzaffarpur:930, Bilaspur:1135 , Cuttack: 775},
+  Kollam : {Kochchi: 555, Thiruvananthapuram: 555, Rameshwaram: 650, Tiruchirappalli:855},
+  Kumarghat : {Silchar: 540, Kohima :420 , Guwahati :790 },
+  Lucknow : {Kanpur : 350, Faridabad: 810, Moradabad: 615, Varanasi :515 , Allahabad :375, Muzaffarpur :855 , Patna:850 },
+  Mangalore : {Panaji: 765, Bangalore :730 , Kochchi :1145, Tiruchirappalli: 920},
+  Moradabad : {Delhi :920 , Dehradun : 495, Lucknow:615},
+  Mumbai : {Ratnagiri :670 , Delvada : 1225, Jalgaon :660 , Pune :545 ,Nanded : 1045},
+  Munabo : {Barmer:130},
+  Murkongselek : {Guwahati:825 , Dhubri :638},
+  Muzaffarapur : {Patna :315, Lucknow: 930, Katihar:505 },
+  Mysore: {Bangalore :590},
+  Nagpur : {Wardha : 250, Raipur : 590 , Bhopal :690 ,Katni: 1020, Jalgaon : 775},
+  Naliya : {Kandla :249},
+  Nanded : {Hyderabad :540 , Akola :590, Mumbai : 975,Pune :920, Jalgaon : 912},
+  Okha  : {Rajkot : 540},
+  Panaji : {Ratnagiri: 580 , Mangalore: 735 , Pune: 1030 , Hospet: 680 , Bangalore: 1065 },
+  Patna : {Gaya: 335 , Muzaffarpur: 295 , Varanasi: 485 , Kolkata: 705 },
+  Pune : {Mumbai: 540 , Panaji: 1030 , Wadi: 710 },
+  Raipur : {Bilaspur: 590 , Nagpur: 590 , Vishakhapatnam: 890 , Sambalpur: 630},
+  Rajkot : {Okha: 540 , Veraval: 495 , Ahembdabad: 495 , Jaipur: 1170 },
+  Rameshwaram : {Kanniyakumari: 765 , Tiruchirapalli: 590},
+  Ranchi : {Bilaspur: 800 , Sambalpur: 620 , Kolkata: 730 , Varanasi: 945 , Gaya: 580},
+  Ratlam : {Vadodara: 590 , Jaipur: 990 , Agra: 975 , Bhopal: 540 },
+  Ratnagiri : {Mumbai: 755 , Panaji: 940 },
+  Renigunta : {Guntakal: 545 , Bengaluru: 680 ,	Chennai: 540 , Kochhi: 1070 ,	Mangalore: 1305 , Guntur: 830, Vijayawada: 725},
+  Sambalpur : {Cuttack: 540 , Raipur: 630 , Vishakhapatnam: 915 },
+  Silchar : {Guwahati: 680 , Kumarghat: 495 , Kohima: 540 },
+  Surat : {Vadodara: 350 , Jalgaon: 610 ,	Mumbai: 495 },
+  Thiruvananthapuram : {Kanniyakumari: 325 , Kollam: 300 },
+  Tiruchirappalli : {Rameshwaram: 505 , Chennai: 680 , Kanniyakumari: 680  , Kollam: 855},
+  Vadodara : {Ahmedabad: 300 , Ratlam: 590 , Surat: 350 },
+  Varanasi : {Allahabad: 495 , Patna: 485 , Gaya: 495 , Lucknow: 590  ,	Faizabad: 545  , Ranchi: 855 },
+  Veraval : {Rajkot: 335 },
+  Vijayawada : {Vishakhapatnam: 695 , Guntur: 555  , Reniguntha: 620 , Chennai: 800 , Wardha : 1000},
+  Vishakhapatnam : {Kirandul : 800 , Vijayawada: 695 , Cuttack: 845 ,	Raipur: 890 , Sambalpur: 915 },
+  Wadi : {Pune: 775 , Hyderabad: 505 , Guntakal: 460 },
+  Wardha : {Nagpur: 540 , Akola: 545 , Hyderabad: 1000 , Vijaywada: 965 },
+};
+const printTable = (table) => {
+  return Object.keys(table)
+    .map((vertex) => {
+      var { vertex: from, cost } = table[vertex];
+      return `${vertex}: ${cost} via ${from}`;
+    })
+    .join("\n");
+};
+
+const tracePath = (table, start, end) => {
+  var path = [];
+  var next = end;
+  while (true) {
+    path.unshift(next);
+    if (next === start) {
+      break;
+    }
+    next = table[next].vertex;
+  }
+
+  return path;
+};
+
+const formatGraph = (g) => {
+  const tmp = {};
+  Object.keys(g).forEach((k) => {
+    const obj = g[k];
+    const arr = [];
+    Object.keys(obj).forEach((v) => arr.push({ vertex: v, cost: obj[v] }));
+    tmp[k] = arr;
+  });
+  return tmp;
+};
+
+function calTime( speed, distance )  
+{ 
+ // Speed & distance both in km/hr
+
+ var hours = Math.floor(distance / speed);  
+  var minutes = (distance / speed)*60;
+minutes %= 60;
+if(hours >= 24)
+{
+let days = Math.floor(hours/24); 
+hours -= days*24;
+return days + "d " + hours + "hrs " + minutes + "mins";
+}
+  return hours + ":"+ minutes;
+}
+
+const dijkstra = (graph, start, end) => {
+  var map = formatGraph(graph);
+
+  var visited = [];
+  var unvisited = [start];
+  var shortestDistances = { [start]: { vertex: start, cost: 0 } };
+
+  var vertex;
+  while ((vertex = unvisited.shift())) {
+    // Explore unvisited neighbors
+    if(map[vertex]==undefined)
+    {
+      continue;
+    }
+    var neighbors = map[vertex].filter((n) => !visited.includes(n.vertex));
+
+    // Add neighbors to the unvisited list
+    unvisited.push(...neighbors.map((n) => n.vertex));
+
+    var costToVertex = shortestDistances[vertex].cost;
+
+    for (let { vertex: to, cost } of neighbors) {
+      var currCostToNeighbor =
+        shortestDistances[to] && shortestDistances[to].cost;
+      var newCostToNeighbor = costToVertex + cost;
+      if (
+        currCostToNeighbor == undefined ||
+        newCostToNeighbor < currCostToNeighbor
+      ) {
+        // Update the table
+        shortestDistances[to] = { vertex, cost: newCostToNeighbor };
+      }
+    }
+
+    visited.push(vertex);
+  }
+
+  console.log("Table of costs:");
+  console.log(printTable(shortestDistances));
+
+  const path = tracePath(shortestDistances, start, end);
+  document.getElementById("right").style.display = "block";
+  document.getElementById("RightList").innerHTML=
+    ["<b>"+"Fastest path: "+"</b>"+'<li class="list-group-item"><i class="fa fa-train" aria-hidden="true"></i>      '+
+    path.join(' </li><li class="list-group-item"><i class="fa fa-train" aria-hidden="true"></i>      ')+"</li>"+"<br>"+"<br>"+"<b>"+
+     "Details: "+"</b>"+"<br>"+"<table class='table table-bordered'>" + "<thead>"+
+    "<tr>"+"<th scope='col'>"+"Distance"+"</th>"+
+      "<th scope='col'>"+"Speed"+"</th>"+"<th scope='col'>"+"Time"+"</th>"+
+    "</tr>"+
+  "</thead>" +"<tbody>"+
+    "<tr>"+
+      "<td>"+shortestDistances[end].cost+"</td>"+
+      "<td>"+"60 Km/Hr"+"</td>"+
+      "<td>"+calTime(60, shortestDistances[end].cost)+"</td>"+
+    "</tr>"+"</tbody>"+
+    "</table>"]
+  ;
+};
+const dijkstra2 = (graph, start, end) => {
+  var map = formatGraph(graph);
+
+  var visited = [];
+  var unvisited = [start];
+  var shortestDistances = { [start]: { vertex: start, cost: 0 } };
+
+  var vertex;
+  while ((vertex = unvisited.shift())) {
+    // Explore unvisited neighbors
+    if(map[vertex]==undefined)
+    {
+      continue;
+    }
+    var neighbors = map[vertex].filter((n) => !visited.includes(n.vertex));
+
+    // Add neighbors to the unvisited list
+    unvisited.push(...neighbors.map((n) => n.vertex));
+
+    var costToVertex = shortestDistances[vertex].cost;
+
+    for (let { vertex: to, cost } of neighbors) {
+      var currCostToNeighbor =
+        shortestDistances[to] && shortestDistances[to].cost;
+      var newCostToNeighbor = costToVertex + cost;
+      if (
+        currCostToNeighbor == undefined ||
+        newCostToNeighbor < currCostToNeighbor
+      ) {
+        // Update the table
+        shortestDistances[to] = { vertex, cost: newCostToNeighbor };
+      }
+    }
+
+    visited.push(vertex);
+  }
+
+  console.log("Table of costs:");
+  console.log(printTable(shortestDistances));
+
+  const path = tracePath(shortestDistances, start, end);
+  document.getElementById("right").style.display = "block";
+  document.getElementById("RightList").innerHTML=
+    ["<b>"+"Cheapest Path: "+"</b>"+'<li class="list-group-item"><i class="fa fa-train" aria-hidden="true"></i>      '+
+    path.join(' </li><li class="list-group-item"><i class="fa fa-train" aria-hidden="true"></i>      ')+"</li>"+"<br>"+"<br>"+
+     "Details: "+"<br>"+"<table class='table table-bordered'>" + "<thead>"+
+    "<tr>"+"<th scope='col'>"+"Category"+"</th>"+
+      "<th scope='col'>"+"Price"+"</th>"+
+    "</tr>"+
+  "</thead>" +"<tbody>"+
+    "<tr>"+
+      "<td>"+"Third Tier AC"+"</td>"+
+      "<td>"+shortestDistances[end].cost+"</td>"+
+    "</tr>"+"</tbody>"+
+    "</table>"]
+  ;
+};
+</script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="color: white;">Travel India</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav" >
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index_proj.html" style="color: white;">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="rail_image.html" style="color: white;">Map</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div style="text-align: center; background-color:goldenrod; border-bottom: 0.4cm; border-style: solid; border-color: black;">
+  <img src="top_image.png" class="img-fluid" alt="..." width="800px" height="20px" style="background-color:skyblue;border-style: solid;
+  border-color: black; border-width: 0.15cm;">
+  </div>
+  <!--<img src="train_img.webp" height="150px" width="350px" >-->
+    <form>
+      <div class="welcome"><b><u>Welcome to Railways</u></b></div>
+      <div style="float: left; width: 50%" id="left">
+        <p><b>From: </b></p>
+      <select name="from" id="from" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+        <option value="-1" selected>Select Source</option>
+        <option value="Agra">Agra</option>
+        <option value="Ahmedabad">Ahemdabad</option>
+        <option value="Akola">Akola</option>
+        <option value="Allahabad">Allahabad</option>
+        <option value="Ambala">Ambala</option>
+        <option value="Amritsar">Amritsar</option>
+        <option value="Anupgarh">Anupgarh</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Bankura">Bankura</option>
+        <option value="Barmer">Barmer</option>
+        <option value="Bhatinda">Bhatida</option>
+        <option value="Bhopal">Bhopal</option>
+        <option value="Bikaner">Bikanet</option>
+        <option value="Bilaspur">Bilaspur</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Cuttack">Cuttack</option>
+        <option value="Dangori">Dangori</option>
+        <option value="Darjiling">Darjiling</option>
+        <option value="Dehradun">Dehradun</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Delvada">Delvada</option>
+        <option value="Dhubri">Dhubri</option>
+        <option value="Dibrugarh">Dibrugarh</option>
+        <option value="Faizabad">Faizabad</option>
+        <option value="Gaya">Gaya</option>
+        <option value="Guntakal">Guntakal</option>
+        <option value="Guntur">Guntur</option>
+        <option value="Guwahati">Guwahati</option>
+        <option value="Haldia">Haldia</option>
+        <option value="Hospet">Hospet</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Jaipur">Jaipur</option>
+        <option value="Jaiselmer">Jaisalmer</option>
+        <option value="Jalgaon">Jalgaon</option>
+        <option value="Jammu">Jammu</option>
+        <option value="Jhansi">Jhansi</option>
+        <option value="Jodhpur">Jodhpur</option>
+        <option value="Kandla">Kandla</option>
+        <option value="Kanniyakumari">Kanniyakumari</option>
+        <option value="Kanpur">Kanpur</option>
+        <option value="Katihar">Katihar</option>
+        <option value="Katni">Katni</option>
+        <option value="Kirandul">Kirandul</option>
+        <option value="Kochchi">Kochchi</option>
+        <option value="Kohima">Kohima</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Kollam">Kollam</option>
+        <option value="Kumarghat">Kumarghat</option>
+        <option value="Lucknow">Lucknow</option>
+        <option value="Mangalore">Mangalore</option>
+        <option value="Moradabad">Moradabad</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Munabo">Munabo</option>
+        <option value="Murkongselek">Murkong Selek</option>
+        <option value="Muzaffarapur">Muzaffarapur</option>
+        <option value="Mysore">Mysore</option>
+        <option value="Nagpur">Nagpur</option>
+        <option value="Naliya">Naliya</option>
+        <option value="Nanded">Nanded</option>
+        <option value="Okha">Okha</option>
+        <option value="Panaji">Panaji</option>
+        <option value="Patna">Patna</option>
+        <option value="Penigunta">Penigunta</option>
+        <option value="Pune">Pune</option>
+        <option value="Raipur">Raipur</option>
+        <option value="Rajkot">Rajkot</option>
+        <option value="Rameshwaram">Rameshwaram</option>
+        <option value="Ranchi">Ranchi</option>
+        <option value="Ratlam">Ratlam</option>
+        <option value="Ratnagiri">Ratnagiri</option>
+        <option value="Sambalpur">Sambalpur</option>
+        <option value="Silchar">Silchar</option>
+        <option value="Surat">Surat</option>
+        <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+        <option value="Tiruchirappali">Tiruchirappali</option>
+        <option value="Vadodra">Vadodara</option>
+        <option value="Varansi">Varanasi</option>
+        <option value="Vijayawada">Vijayawada</option>
+        <option value="Vishakhapatnam">Vishakhapatnam</option>
+        <option value="Wadi">Wadi</option>
+        <option value="Wardha">Wardha</option>
+    </select>
+    <p><b>To: </b></p>
+        <select name="to" id="to" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+          <option value="-1" selected>Select Destination</option>
+          <option value="Agra">Agra</option>
+          <option value="Ahmedabad">Ahemdabad</option>
+          <option value="Akola">Akola</option>
+          <option value="Allahabad">Allahabad</option>
+          <option value="Ambala">Ambala</option>
+          <option value="Amritsar">Amritsar</option>
+          <option value="Anupgarh">Anupgarh</option>
+          <option value="Bangalore">Bangalore</option>
+          <option value="Bankura">Bankura</option>
+          <option value="Barmer">Barmer</option>
+          <option value="Bhatinda">Bhatida</option>
+          <option value="Bhopal">Bhopal</option>
+          <option value="Bikaner">Bikanet</option>
+          <option value="Bilaspur">Bilaspur</option>
+          <option value="Chennai">Chennai</option>
+          <option value="Cuttack">Cuttack</option>
+          <option value="Dangori">Dangori</option>
+          <option value="Darjiling">Darjiling</option>
+          <option value="Dehradun">Dehradun</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Delvada">Delvada</option>
+          <option value="Dhubri">Dhubri</option>
+          <option value="Dibrugarh">Dibrugarh</option>
+          <option value="Faizabad">Faizabad</option>
+          <option value="Gaya">Gaya</option>
+          <option value="Guntakal">Guntakal</option>
+          <option value="Guntur">Guntur</option>
+          <option value="Guwahati">Guwahati</option>
+          <option value="Haldia">Haldia</option>
+          <option value="Hospet">Hospet</option>
+          <option value="Hyderabad">Hyderabad</option>
+          <option value="Jaipur">Jaipur</option>
+          <option value="Jaiselmer">Jaisalmer</option>
+          <option value="Jalgaon">Jalgaon</option>
+          <option value="Jammu">Jammu</option>
+          <option value="Jhansi">Jhansi</option>
+          <option value="Jodhpur">Jodhpur</option>
+          <option value="Kandla">Kandla</option>
+          <option value="Kanniyakumari">Kanniyakumari</option>
+          <option value="Kanpur">Kanpur</option>
+          <option value="Katihar">Katihar</option>
+          <option value="Katni">Katni</option>
+          <option value="Kirandul">Kirandul</option>
+          <option value="Kochchi">Kochchi</option>
+          <option value="Kohima">Kohima</option>
+          <option value="Kolkata">Kolkata</option>
+          <option value="Kollam">Kollam</option>
+          <option value="Kumarghat">Kumarghat</option>
+          <option value="Lucknow">Lucknow</option>
+          <option value="Mangalore">Mangalore</option>
+          <option value="Moradabad">Moradabad</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Munabo">Munabo</option>
+          <option value="Murkongselek">Murkong Selek</option>
+          <option value="Muzaffarapur">Muzaffarapur</option>
+          <option value="Mysore">Mysore</option>
+          <option value="Nagpur">Nagpur</option>
+          <option value="Naliya">Naliya</option>
+          <option value="Nanded">Nanded</option>
+          <option value="Okha">Okha</option>
+          <option value="Panaji">Panaji</option>
+          <option value="Patna">Patna</option>
+          <option value="Penigunta">Penigunta</option>
+          <option value="Pune">Pune</option>
+          <option value="Raipur">Raipur</option>
+          <option value="Rajkot">Rajkot</option>
+          <option value="Rameshwaram">Rameshwaram</option>
+          <option value="Ranchi">Ranchi</option>
+          <option value="Ratlam">Ratlam</option>
+          <option value="Ratnagiri">Ratnagiri</option>
+          <option value="Sambalpur">Sambalpur</option>
+          <option value="Silchar">Silchar</option>
+          <option value="Surat">Surat</option>
+          <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+          <option value="Tiruchirappali">Tiruchirappali</option>
+          <option value="Vadodra">Vadodara</option>
+          <option value="Varansi">Varanasi</option>
+          <option value="Vijayawada">Vijayawada</option>
+          <option value="Vishakhapatnam">Vishakhapatnam</option>
+          <option value="Wadi">Wadi</option>
+          <option value="Wardha">Wardha</option>
+        </select>
+        <div class="d-grid gap-2 col-6 mx-auto">
+        <input class="btn btn-primary" type="button" value = "Find Fastest Path" id="myButton" onclick="dijkstra(graph, from.value, to.value)">
+        <input class="btn btn-primary" type="button" value = "Find Cheapest Path" id="myButton" onclick="dijkstra2(graph2, from.value, to.value)">
+      </div>
+      </div>
+    </form>
+    <div style="float: right; width: 45%" id = "right">
+      <!--<div class="PathHere">Check your path here</div>-->
+      <ul class="list-group" id="RightList">
+      </ul>
+    </div>
+</body>
+</html>
